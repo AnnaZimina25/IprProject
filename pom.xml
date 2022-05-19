@@ -33,7 +33,7 @@
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-failsave-plugin.version>3.0.0M4</maven-failsave-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <!-- Слушатель JUnit -->
+        <!--JUnit listener version-->
         <aspectj.version>1.9.7.M3</aspectj.version>
     </properties>
 </project>
