@@ -69,10 +69,4 @@ public class LetterReadingContainer {
         getFooterButton("Ответить").click();
         return new MessageRedactor(driver);
     }
-
-    @Step("Нажать кнопку 'Переслать' футера")
-    public MessageRedactor footerForwardClick() {
-        getFooterButton("Переслать").click();
-        return new MessageRedactor(driver);
-    }
 }

@@ -31,7 +31,7 @@ public class MailCheckTest {
     }
 
     @Test
-    @Description("Проверка входящих писем. Проверка режима чтения письма и функциональности базовых кнопок")
+    @Description("Проверка входящих писем. Проверка режима чтения письма и функциональности кнопоки 'Ответить'")
     @Tags({@Tag("CheckMail"), @Tag("CheckIncomingEmails")})
     void checkIncomingEmails() {
         mailPage.selectFolderByName("Входящие");
@@ -45,13 +45,6 @@ public class MailCheckTest {
 
         step("Проверка функциональности кнопки 'Ответить' футера письма", () -> {
             MessageRedactor messageRedactor = mailPage.letterReadingContainer.footerReplyClick();
-            assertTrue(messageRedactor.getRedactorForm().isDisplayed(),
-                    "Не открылась форма составления письма");
-            messageRedactor.closeButtonClick();
-        });
-
-        step("Проверка функциональности кнопки 'Переслать' футера письма", () -> {
-            MessageRedactor messageRedactor = mailPage.letterReadingContainer.footerForwardClick();
             assertTrue(messageRedactor.getRedactorForm().isDisplayed(),
                     "Не открылась форма составления письма");
             messageRedactor.closeButtonClick();
