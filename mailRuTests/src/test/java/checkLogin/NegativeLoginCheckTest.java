@@ -4,7 +4,7 @@ import io.qameta.allure.Description;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebElement;
 import pages.MainPage;
-import pages.lightBox.LoginForm;
+import pages.pageElements.lightBox.LoginForm;
 import user.BigLebovski;
 
 import static io.qameta.allure.Allure.step;
@@ -53,7 +53,6 @@ public class NegativeLoginCheckTest {
     @Tags({@Tag("NegativeLoginCheck"), @Tag("EmptyUser")})
     void emptyUserCheck() {
         LoginForm loginForm = mainPage.headerPanel.openLoginLightBox()
-                //.fillLoginField("randomUser3324465()")
                 .toSelectRememberMe(false)
                 .fillPasswordButtonClick();
 

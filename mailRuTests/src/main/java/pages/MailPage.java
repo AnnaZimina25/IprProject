@@ -3,10 +3,10 @@ package pages;
 import data.LetterData;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
-import pages.lightBox.MessageRedactor;
-import pages.panels.LeftMailPanel;
-import pages.panels.LetterReadingContainer;
-import pages.panels.LettersListContainer;
+import pages.pageElements.lightBox.MessageRedactor;
+import pages.pageElements.panels.LeftMailPanel;
+import pages.pageElements.panels.LetterReadingContainer;
+import pages.pageElements.panels.LettersListContainer;
 
 /**
  * Страница почты Mail.ru

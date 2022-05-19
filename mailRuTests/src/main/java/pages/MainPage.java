@@ -2,7 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import pages.panels.HeaderPanel;
+import pages.pageElements.panels.HeaderPanel;
 
 /**
  * Главная страница Mail.ru

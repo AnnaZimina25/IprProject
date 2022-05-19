@@ -1,22 +1,20 @@
-package pages.panels;
+package pages.pageElements.panels;
 
 import driver.WebDriverWrapper;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
-import pages.lightBox.LoginForm;
+import pages.pageElements.BasePageElement;
+import pages.pageElements.lightBox.LoginForm;
 
 import static org.openqa.selenium.By.xpath;
 
 /**
  * Хидер страниц ресурса mail.ru
  */
-public class HeaderPanel {
-
-    private WebDriverWrapper driver;
-    private String headerRoot = "//div[@data-testid='whiteline']";
+public class HeaderPanel extends BasePageElement {
 
     public HeaderPanel(WebDriverWrapper driver) {
-        this.driver = driver;
+        super(driver, "//div[@data-testid='whiteline']");
     }
 
     @Step("Поиск ссылки хидера по названию '{text}'")
@@ -36,7 +34,7 @@ public class HeaderPanel {
      * @param text - текст, который содержится в элементе
      */
     public WebElement getElementByTextContains(String elementType, String text) {
-        String xpath = String.format("%s//%s[contains(.,'%s')]", headerRoot,
+        String xpath = String.format("%s//%s[contains(.,'%s')]", elementRootXpath,
                 elementType, text);
         return driver.findElement(xpath(xpath));
     }
@@ -50,7 +48,7 @@ public class HeaderPanel {
 
     @Step("Открыть форму логина")
     public LoginForm openLoginLightBox() {
-        String parentHandle = driver.getWindowHandle();
+        driver.getWindowHandle();
         getButtonByText("Войти").click();
         return new LoginForm(driver);
     }
@@ -58,7 +56,7 @@ public class HeaderPanel {
     @Step("Поиск инфо о пользователе")
     public WebElement getUserInfo() {
         return driver
-                .findElement(xpath(String.format("%s//div[@data-testid='whiteline-account']", headerRoot)));
+                .findElement(xpath(String.format("%s//div[@data-testid='whiteline-account']", elementRootXpath)));
     }
 
     @Step("Развернуть правую панель пользователя")

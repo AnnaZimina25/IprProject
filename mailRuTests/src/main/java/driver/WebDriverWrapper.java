@@ -115,8 +115,7 @@ public class WebDriverWrapper {
         return driver.getWindowHandle();
     }
 
-    public void switchToChildFrame(By locator) throws TimeoutException {
-        WebElement frame = findElement(locator);
+    public void switchToChildFrame(WebElement frame) throws TimeoutException {
         log.debug("Переключаюсь на внутреннюю форму");
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
     }

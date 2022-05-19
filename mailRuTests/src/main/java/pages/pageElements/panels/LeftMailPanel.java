@@ -1,33 +1,31 @@
-package pages.panels;
+package pages.pageElements.panels;
 
 import driver.WebDriverWrapper;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import pages.pageElements.BasePageElement;
 
 import java.util.List;
 
 /**
  * Левая панель почтовой страницы ресурса mail.ru
  */
-public class LeftMailPanel {
-
-    private WebDriverWrapper driver;
-    private String rootElement = "//div[contains(@class,'sidebar__full')]";
+public class LeftMailPanel extends BasePageElement {
 
     public LeftMailPanel(WebDriverWrapper driver) {
-        this.driver = driver;
+        super(driver, "//div[contains(@class,'sidebar__full')]");
     }
 
     @Step("Поиск кнопки 'Написать письмо'")
     public WebElement getCreateMessageButton() {
-        return driver.findElement(By.ByXPath.xpath(rootElement + "//a[@title='Написать письмо']"));
+        return driver.findElement(By.ByXPath.xpath(elementRootXpath + "//a[@title='Написать письмо']"));
     }
 
     @Step("Поиск папки по названию")
     public WebElement getFolderByName(String folderName) {
         String xpath = String.format("%s//a[contains(@class,'nav__item') and contains(@title,'%s')]",
-                rootElement,
+                elementRootXpath,
                 folderName);
         return driver.findElement(By.ByXPath.xpath(xpath));
     }
@@ -37,7 +35,7 @@ public class LeftMailPanel {
         String additionalCondition = isEmpty ? "contains" : "not contains";
 
         String xpath = String.format("%s//a[contains(@class,'nav__item') and %s(@title,'нет писем')]",
-                rootElement, additionalCondition);
+                elementRootXpath, additionalCondition);
         return driver.findElements(By.ByXPath.xpath(xpath));
     }
 

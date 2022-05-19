@@ -7,8 +7,8 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebElement;
 import pages.MailPage;
 import pages.MainPage;
-import pages.lightBox.MessageRedactor;
-import pages.lightBox.NotificationForm;
+import pages.pageElements.lightBox.MessageRedactor;
+import pages.pageElements.lightBox.NotificationForm;
 import user.BigLebovski;
 import user.YolterYait;
 
@@ -45,7 +45,7 @@ public class MailCheckTest {
 
         step("Проверка функциональности кнопки 'Ответить' футера письма", () -> {
             MessageRedactor messageRedactor = mailPage.letterReadingContainer.footerReplyClick();
-            assertTrue(messageRedactor.getRedactorForm().isDisplayed(),
+            assertTrue(messageRedactor.waitingFormIsVisible().isDisplayed(),
                     "Не открылась форма составления письма");
             messageRedactor.closeButtonClick();
         });

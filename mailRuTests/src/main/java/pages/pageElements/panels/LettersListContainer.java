@@ -1,8 +1,9 @@
-package pages.panels;
+package pages.pageElements.panels;
 
 import driver.WebDriverWrapper;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
+import pages.pageElements.BasePageElement;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,36 +13,34 @@ import static org.openqa.selenium.By.xpath;
 /**
  * Область c письмами (одной папки) почтового ящика mail.ru
  */
-public class LettersListContainer {
+public class LettersListContainer extends BasePageElement {
 
-    private WebDriverWrapper driver;
-    private String rootElement = "//div[@class='letter-list__react']";
-    private String letterRoot = "a[contains(@class,'llc_')]";
+    private static String letterRoot = "a[contains(@class,'llc_')]";
 
     public LettersListContainer(WebDriverWrapper driver) {
-        this.driver = driver;
+        super(driver, "//div[@class='letter-list__react']");
     }
 
     @Step("Дождаться обновления писем в папке")
     public WebElement folderCheckoutWait() {
-        return driver.findElement(xpath(rootElement));
+        return driver.findElement(xpath(elementRootXpath));
     }
 
     @Step("Поиск сообщения о том, что выбранная папка не содержит писем")
     public WebElement getEmptyPackageDescription() {
-        return driver.findElement(xpath(rootElement + "//*[@class='octopus__title']"));
+        return driver.findElement(xpath(elementRootXpath + "//*[@class='octopus__title']"));
     }
 
     @Step("Поиск всех отображающихся писем выбранной папки")
     public List<WebElement> getAllLetters() {
-        return driver.findElements(xpath(rootElement + "//" +letterRoot));
+        return driver.findElements(xpath(elementRootXpath + "//" +letterRoot));
     }
 
     @Step("Поиск всех отображающихся непрочитанных писем выбранной папки")
     public List<WebElement> getOnlyUnreadLetters() {
         return driver.findElements(xpath(
                 String.format("%s//div[contains(@class,'unread')]/ancestor::%s",
-                rootElement, letterRoot)));
+                        elementRootXpath, letterRoot)));
     }
 
     public WebElement getRandomLetter(List<WebElement> letters) {
@@ -62,7 +61,7 @@ public class LettersListContainer {
     @Step("Найти письмо по теме {theme}")
     public WebElement getLetterByTheme(String theme) {
         return driver.findElement(xpath(String.format("%s//span[text()='%s']/ancestor::%s",
-                rootElement, theme, letterRoot)));
+                elementRootXpath, theme, letterRoot)));
     }
 
     @Step("Убедиться, что письмо не прочитано")

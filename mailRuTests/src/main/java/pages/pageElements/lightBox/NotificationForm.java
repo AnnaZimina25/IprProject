@@ -1,4 +1,4 @@
-package pages.lightBox;
+package pages.pageElements.lightBox;
 
 import driver.WebDriverWrapper;
 import io.qameta.allure.Step;
@@ -9,29 +9,14 @@ import static org.openqa.selenium.By.xpath;
 /**
  * Форма уведомления Mail.ru
  */
-public class NotificationForm {
-
-    private WebDriverWrapper driver;
-    private String formRoot = "//div[contains(@class,'layer_media')]";
-
+public class NotificationForm extends BaseForm{
     public NotificationForm(WebDriverWrapper driver) {
-        this.driver = driver;
-    }
-
-    @Step("Ожидание загрузки фомы")
-    public WebElement waitingFormIsVisible() {
-        return driver.findElement(xpath(formRoot));
+        super(driver, "//div[contains(@class,'layer_media')]");
     }
 
     @Step("Поиск заголовка уведомления")
     public WebElement getNotificationHeader() {
-        return driver.findElement(xpath(formRoot + "//a[@class='layer__link']"));
-    }
-
-    @Step("Закрыть уведомление")
-    public NotificationForm closeButtonClick() {
-        driver.findElement(xpath(formRoot + "//span[@title='Закрыть']")).click();
-        return this;
+        return driver.findElement(xpath(elementRootXpath + "//a[@class='layer__link']"));
     }
 
     @Step("Убедиться, что заголовок уведомления содержит текст: '{text}'")
@@ -41,6 +26,6 @@ public class NotificationForm {
 
     @Step("Ожидание исчезновения фомы")
     public void waitingForDisappear() {
-        driver.waitingForDisappearElement(xpath(formRoot), 40);
+        driver.waitingForDisappearElement(xpath(elementRootXpath), 40);
     }
 }

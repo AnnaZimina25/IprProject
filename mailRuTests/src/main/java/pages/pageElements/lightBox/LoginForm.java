@@ -1,4 +1,4 @@
-package pages.lightBox;
+package pages.pageElements.lightBox;
 
 import driver.WebDriverWrapper;
 import io.qameta.allure.Step;
@@ -10,12 +10,11 @@ import static org.openqa.selenium.By.xpath;
 /**
  * Форма логина ресурса Mail.ru
  */
-public class LoginForm {
-    private WebDriverWrapper driver;
+public class LoginForm extends BaseForm{
 
     public LoginForm(WebDriverWrapper driver) {
-        this.driver = driver;
-        driver.switchToChildFrame(xpath("//iframe[contains(@class,'ag-popup_')]"));
+        super(driver, "//iframe[contains(@class,'ag-popup_')]");
+        driver.switchToChildFrame(waitingFormIsVisible());
     }
 
     @Step("Поиск заголовка формы")
