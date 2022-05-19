@@ -22,7 +22,7 @@ public class LeftMailPanel extends BasePageElement {
         return driver.findElement(By.ByXPath.xpath(elementRootXpath + "//a[@title='Написать письмо']"));
     }
 
-    @Step("Поиск папки по названию")
+    @Step("Поиск папки по названию '{folderName}'")
     public WebElement getFolderByName(String folderName) {
         String xpath = String.format("%s//a[contains(@class,'nav__item') and contains(@title,'%s')]",
                 elementRootXpath,
@@ -50,7 +50,7 @@ public class LeftMailPanel extends BasePageElement {
         return getLettersCountFromTitle(title)[0];
     }
 
-    @Step("Получить общее количество писем в папке {folderName}")
+    @Step("Получить общее количество писем в папке '{folderName}'")
     public int getLettersCount(String folderName) {
         String title = getFolderByName(folderName).getAttribute("title");
         return getLettersCountFromTitle(title)[0];
@@ -62,7 +62,7 @@ public class LeftMailPanel extends BasePageElement {
         return getLettersCountFromTitle(title)[1];
     }
 
-    @Step("Получить количество непрочитанных писем в папке {folderName}")
+    @Step("Получить количество непрочитанных писем в папке '{folderName}'")
     public int getUnreadLettersCount(String folderName) {
         String title = getFolderByName(folderName).getAttribute("title");
         return getLettersCountFromTitle(title)[1];

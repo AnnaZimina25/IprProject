@@ -58,7 +58,7 @@ public class LettersListContainer extends BasePageElement {
         return getRandomLetter(getOnlyUnreadLetters());
     }
 
-    @Step("Найти письмо по теме {theme}")
+    @Step("Найти письмо по теме '{theme}'")
     public WebElement getLetterByTheme(String theme) {
         return driver.findElement(xpath(String.format("%s//span[text()='%s']/ancestor::%s",
                 elementRootXpath, theme, letterRoot)));
