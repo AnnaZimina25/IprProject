@@ -1,0 +1,16 @@
+pages\BasePage.class
+user\BigLebovski.class
+driver\WebDriverWrapper.class
+pages\panels\UserPanel.class
+pages\panels\LeftMailPanel.class
+pages\panels\LetterReadingContainer.class
+user\User.class
+pages\MainPage.class
+user\YolterYait.class
+data\LetterData.class
+pages\panels\HeaderPanel.class
+pages\MailPage.class
+pages\lightBox\LoginForm.class
+pages\panels\LettersListContainer.class
+pages\lightBox\MessageRedactor.class
+pages\lightBox\NotificationForm.class
