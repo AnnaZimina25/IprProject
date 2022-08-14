@@ -24,6 +24,8 @@
         <selenium.version>4.1.2</selenium.version>
         <!-- Rest-assured version -->
         <rest-assured.version>4.4.0</rest-assured.version>
+        <!-- Jackson version -->
+        <jackson-databind.version>2.12.4</jackson-databind.version>
         <!-- JUnit versions -->
         <JUnitJupiter.version>5.8.2</JUnitJupiter.version>
         <junit-platform-surefire-provider.version>1.3.2</junit-platform-surefire-provider.version>

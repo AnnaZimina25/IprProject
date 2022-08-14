@@ -11,11 +11,6 @@
 
     <artifactId>apiTests</artifactId>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <!-- Rest-assured -->
         <dependency>
@@ -30,6 +25,20 @@
             <version>${JUnitJupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- для сериализации-десериализации JSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.3</version>
+        </dependency>
+
         <!-- Allure reporting -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
