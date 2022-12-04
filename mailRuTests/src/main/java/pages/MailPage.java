@@ -61,7 +61,6 @@ public class MailPage extends BasePage {
     @Step("Нажать на кнопку 'Написать сообщение'")
     public MessageRedactor createMessageClick() {
         leftMailPanel.getCreateMessageButton().click();
-
         return new MessageRedactor(driver);
     }
 

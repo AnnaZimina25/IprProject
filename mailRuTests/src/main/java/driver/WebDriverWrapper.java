@@ -38,6 +38,7 @@ public class WebDriverWrapper {
 
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        //options.addArguments("--disable-notifications");
         WebDriverManager.chromedriver().setup();
 
         driver = new ChromeDriver(options);

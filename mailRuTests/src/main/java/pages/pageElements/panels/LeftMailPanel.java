@@ -2,24 +2,28 @@ package pages.pageElements.panels;
 
 import driver.WebDriverWrapper;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.pageElements.BasePageElement;
 
 import java.util.List;
 
+import static org.openqa.selenium.By.xpath;
+
 /**
  * Левая панель почтовой страницы ресурса mail.ru
  */
 public class LeftMailPanel extends BasePageElement {
+    private HeaderPanel headerPanel;
 
     public LeftMailPanel(WebDriverWrapper driver) {
-        super(driver, "//div[contains(@class,'sidebar__full')]");
+        super(driver, "//div[contains(@class,'sidebar-folders')]");
+        headerPanel = new HeaderPanel(driver);
     }
 
     @Step("Поиск кнопки 'Написать письмо'")
     public WebElement getCreateMessageButton() {
-        return driver.findElement(By.ByXPath.xpath(elementRootXpath + "//a[@title='Написать письмо']"));
+        headerPanel.closeAllNotifications();
+        return driver.findElement(xpath(elementRootXpath + "//div[contains(@class,'compose-btn-box')]"));
     }
 
     @Step("Поиск папки по названию '{folderName}'")
@@ -27,7 +31,7 @@ public class LeftMailPanel extends BasePageElement {
         String xpath = String.format("%s//a[contains(@class,'nav__item') and contains(@title,'%s')]",
                 elementRootXpath,
                 folderName);
-        return driver.findElement(By.ByXPath.xpath(xpath));
+        return driver.findElement(xpath(xpath));
     }
 
     @Step("Получить список всех пустых/не пустых {isEmpty} папок")
@@ -36,7 +40,7 @@ public class LeftMailPanel extends BasePageElement {
 
         String xpath = String.format("%s//a[contains(@class,'nav__item') and %s(@title,'нет писем')]",
                 elementRootXpath, additionalCondition);
-        return driver.findElements(By.ByXPath.xpath(xpath));
+        return driver.findElements(xpath(xpath));
     }
 
     @Step("Выяснить является ли папка активной")

@@ -57,7 +57,7 @@ public class LetterReadingContainer extends BasePageElement {
 
     @Step("Получить кнопку футера по названию '{footerButtonName}'")
     public WebElement getFooterButton(String footerButtonName) {
-        return driver.findElement(xpath(String.format("%s//div[@class='letter__footer-button']//span[text()='%s']",
+        return driver.findElement(xpath(String.format("%s//div[@class='letter__footer-button']//span[@title='%s']",
                 elementRootXpath, footerButtonName)));
     }
 

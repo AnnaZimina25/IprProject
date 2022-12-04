@@ -70,6 +70,7 @@ public class BasePage {
         headerPanel.expandUserPanel().logout();
     }
 
+
     public WebDriverWrapper getDriver() {
         return driver;
     }

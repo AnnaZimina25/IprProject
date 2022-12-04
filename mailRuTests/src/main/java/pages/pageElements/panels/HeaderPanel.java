@@ -2,10 +2,12 @@ package pages.pageElements.panels;
 
 import driver.WebDriverWrapper;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.pageElements.BasePageElement;
 import pages.pageElements.lightBox.LoginForm;
 
+import static java.lang.String.format;
 import static org.openqa.selenium.By.xpath;
 
 /**
@@ -31,15 +33,15 @@ public class HeaderPanel extends BasePageElement {
      * Выполняет поиск элемента хидера по типу элемента и содержащемуся тексту
      *
      * @param elementType - тип элемнта (div, a, button и т.п.)
-     * @param text - текст, который содержится в элементе
+     * @param text        - текст, который содержится в элементе
      */
     public WebElement getElementByTextContains(String elementType, String text) {
-        String xpath = String.format("%s//%s[contains(.,'%s')]", elementRootXpath,
+        String xpath = format("%s//%s[contains(.,'%s')]", elementRootXpath,
                 elementType, text);
         return driver.findElement(xpath(xpath));
     }
 
-    @Step("Выяснить является ли вкладка хидера '{tabName}' актиной")
+    @Step("Выяснить является ли вкладка хидера '{tabName}' активной")
     public boolean isHeaderTabActive(String tabName) {
         return getHeaderLinkByText(tabName)
                 .getAttribute("class")
@@ -55,13 +57,19 @@ public class HeaderPanel extends BasePageElement {
 
     @Step("Поиск инфо о пользователе")
     public WebElement getUserInfo() {
-        return driver
-                .findElement(xpath(String.format("%s//div[@data-testid='whiteline-account']", elementRootXpath)));
+        return driver.findElement(xpath(format("%s//div[@data-testid='whiteline-account']",
+                elementRootXpath)));
     }
 
     @Step("Развернуть правую панель пользователя")
     public UserPanel expandUserPanel() {
         getUserInfo().click();
         return new UserPanel(driver);
+    }
+
+    @Step("Закрыть все уведомления хидера от Mail")
+    public void closeAllNotifications() {
+        driver.findElements(By.xpath(elementRootXpath + "//*[@data-show-pixel]/div[contains(@class,'close-icon')]"))
+                .forEach(WebElement::click);
     }
 }

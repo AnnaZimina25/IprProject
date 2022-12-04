@@ -67,7 +67,6 @@ public class MailCheckTest {
     @Description("Проверка входящих писем. Составление и отправка письма себе же.")
     @Tags({@Tag("CheckMail"), @Tag("SendSelfEmail"), @Tag("CheckIncomingSelfEmails")})
     void sendSelfEmail() {
-
         int allLettersBefore = mailPage.leftMailPanel.getLettersCount("Письма себе");
         int unreadLettersBefore = mailPage.leftMailPanel.getUnreadLettersCount("Письма себе");
 
