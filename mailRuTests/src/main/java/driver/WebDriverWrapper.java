@@ -1,5 +1,6 @@
 package driver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
@@ -18,9 +19,9 @@ import java.util.List;
 public class WebDriverWrapper {
 
     private static Logger log = LogManager.getRootLogger();
-    private RemoteWebDriver driver = null;
-    private WebDriverWait wait = null;
-    boolean colorElements = false;
+    private RemoteWebDriver driver;
+    private WebDriverWait wait;
+    boolean colorElements;
 
     private static WebDriverWrapper instance = null;
 
@@ -37,7 +38,7 @@ public class WebDriverWrapper {
 
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/bin/chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
@@ -71,7 +72,7 @@ public class WebDriverWrapper {
     }
 
     public WebElement findElement(By locator) throws TimeoutException {
-        WebElement element = null;
+        WebElement element;
         int maxCount = 3;
         for (int count = 0; count < maxCount; count++) {
             log.debug("Пробую найти элемент {} - попытка #{}", locator.toString(), count);
@@ -106,7 +107,7 @@ public class WebDriverWrapper {
 
     public void scroll(int pix) {
         log.debug("Отматываем страницу");
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+        JavascriptExecutor js = driver;
         js.executeScript(String.format("window.scrollBy(0,%d)", pix));
     }
 

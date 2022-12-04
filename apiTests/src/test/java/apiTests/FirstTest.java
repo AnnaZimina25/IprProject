@@ -23,7 +23,7 @@ public class FirstTest {
     void checkWorks() {
 
  //      String users = perfApi.getApiUsers().getBodyAsStr();
-  //      perfApi.login();
+ //       perfApi.login();
 
         List<Person> people = perfApi
                 .getPersons()
@@ -32,7 +32,7 @@ public class FirstTest {
                 .getBodyAsObjectsList(Person.class);
 
         people.forEach(System.out::println);
-        System.out.println(people.get(0) instanceof Person);
+        System.out.println(people.get(0) != null);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class FirstTest {
                 .setSecondName("Lebovski")
                 .setSex(MALE)
                 .setAge(37)
-                .setMoney(new BigDecimal(232313.00));
+                .setMoney(new BigDecimal("232313.00"));
         perfApi.addPerson(testPerson);
 
 

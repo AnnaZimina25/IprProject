@@ -6,7 +6,6 @@ import dtoModels.Person;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Method;
-import io.restassured.specification.RequestSenderOptions;
 import io.restassured.specification.RequestSpecification;
 
 import java.math.BigDecimal;
@@ -20,11 +19,11 @@ import static io.restassured.RestAssured.given;
  */
 public class PerfApi {
 
-    private static String baseUri = "http://77.50.236.203:4880";
+    private static final String BASE_URI = "http://77.50.236.203:4880";
     // private static RequestSpecification spec;
     private static ObjectMapper mapper = new ObjectMapper();
     private String token;
-    private Map<String, String> headers = new HashMap<String, String>() {{
+    private Map<String, String> headers = new HashMap<>() {{
         put("Content-Type", "application/json");
     }};
 
@@ -38,7 +37,7 @@ public class PerfApi {
 //    }
 
     private RequestSpecification setRequestSpec(String basePath, String body) {
-        return new RequestSpecBuilder().setBaseUri(baseUri)
+        return new RequestSpecBuilder().setBaseUri(BASE_URI)
                 .setBasePath(basePath)
                 .addHeader("Content-Type", "application/json")
                 //.addHeaders(headers)
@@ -60,17 +59,18 @@ public class PerfApi {
 
         return new ResponseWrapper(given().spec(setRequestSpec(basePath, ""))
                 .when()
+                //.post()
                 .request(Method.GET)
                 .thenReturn());
     }
 
     @Step("Выполнить запрос GET /users")
     public ResponseWrapper getPersons() {
-//        return new ResponseWrapper(given().spec(setRequestSpec("/users",""))
-//                .when()
-//                .get()
-//                .thenReturn());
-        return sendRequest("/users");
+        return new ResponseWrapper(given().spec(setRequestSpec("/users",""))
+                .when()
+                .get()
+                .thenReturn());
+     //   return sendRequest("/users");
     }
 
     @Step("Выполнить запрос GET /api/users")
@@ -84,11 +84,11 @@ public class PerfApi {
 
     @Step("Выполнить запрос GET /user/{id}")
     public ResponseWrapper getPerson(int id) {
-       return sendRequest("/user/");
-//        return new ResponseWrapper(given().spec(setRequestSpec("/user/" + id, ""))
-//                .when()
-//                .get()
-//                .thenReturn());
+     //  return sendRequest("/user/");
+        return new ResponseWrapper(given().spec(setRequestSpec("/user/" + id, ""))
+                .when()
+                .get()
+                .thenReturn());
     }
 
     // POST http://example.org/addUser
@@ -133,8 +133,7 @@ public class PerfApi {
 
     public void login() {
         //Content - Type:application / json
-        String jsonString = "{\"username\":\"authTester\"," +
-                "  \"password\":\"password\"}";
+        String jsonString = "{\"username\":\"authTester\",\"password\":\"password\"}";
 //        String token = new ResponseWrapper(given().spec(setRequestSpec("/login", jsonString))
 //                .when()
 //                .post()
