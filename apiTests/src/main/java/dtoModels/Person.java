@@ -1,9 +1,19 @@
 package dtoModels;
 
+import io.qameta.allure.Step;
+
 import java.math.BigDecimal;
 import java.util.Locale;
 
-public class Person {
+import static dtoModels.Person.Sex.FEMALE;
+import static dtoModels.Person.Sex.MALE;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/**
+ * Класс хранения данных модели User
+ */
+public class Person extends Model{
 
 //    "id": 1,
 //            "firstName": "Vasiliy",
@@ -23,13 +33,24 @@ public class Person {
     public Person() {
     }
 
-//    public Person(String firstName, String secondName, Integer age, String sex, BigDecimal money) {
-//        this.firstName = firstName;
-//        this.secondName = secondName;
-//        this.age = age;
-//        this.sex = sex;
-//        this.money = money;
-//    }
+    public Person(String firstName, String secondName, Integer age, String sex, BigDecimal money) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.age = age;
+        this.sex = sex;
+        this.money = money;
+    }
+
+
+    public Person setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Person setHouse_id(Integer house_id) {
+        this.house_id = house_id;
+        return this;
+    }
 
     public Person setFirstName(String firstName) {
         this.firstName = firstName;
@@ -41,7 +62,7 @@ public class Person {
         return this;
     }
 
-    public Person setAge(int age) {
+    public Person setAge(Integer age) {
         this.age = age;
         return this;
     }
@@ -51,8 +72,14 @@ public class Person {
         return this;
     }
 
-    public Person setMoney(BigDecimal money) {
-        this.money = money;
+    public Person setDbSex(Boolean dataBaseValue) {
+        this.sex = dataBaseValue ?
+                MALE.name() : FEMALE.name();
+        return this;
+    }
+
+    public Person setMoney(Double money) {
+        this.money = money != null? new BigDecimal(money) : null;
         return this;
     }
 
@@ -80,15 +107,20 @@ public class Person {
         return money;
     }
 
+    public Integer getHouse_id() {
+        return house_id;
+    }
+
     @Override
     public String toString() {
-        return "Person{" +
+        return "User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", age=" + age +
                 ", sex='" + sex + '\'' +
                 ", money=" + money +
+                ", house_id=" + house_id +
                 '}';
     }
 
@@ -96,13 +128,13 @@ public class Person {
         MALE(true),
         FEMALE(false);
 
-       private boolean databaseValue;
+       private Boolean databaseValue;
 
-        public boolean getDatabaseValue() {
+        public Boolean getDatabaseValue() {
             return databaseValue;
         }
 
-        Sex(boolean databaseValue) {
+        Sex(Boolean databaseValue) {
             this.databaseValue = databaseValue;
         }
 

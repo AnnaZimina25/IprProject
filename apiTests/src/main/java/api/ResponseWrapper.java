@@ -42,8 +42,4 @@ public class ResponseWrapper {
     public String getBodyAsStr() {
         return this.response.body().asString();
     }
-
-    // распарсить ответ в объект -ок
-    // ? проверить заголовок - ок
-    // проверить что в теле ответа содержится значение ???
 }

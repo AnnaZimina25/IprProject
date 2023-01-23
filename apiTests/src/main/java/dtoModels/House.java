@@ -3,7 +3,10 @@ package dtoModels;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class House {
+/**
+ * Класс хранения данных модели House
+ */
+public class House extends Model {
 
 //    {
 //        "id": 3,
@@ -33,11 +36,11 @@ public class House {
 //  ]
 //    }
 
-    public Integer id;
-    public Integer floorCount;
-    public BigDecimal price;
-    public List<ParkingPlace> parkingPlaces;
-    public List<Person> lodgers;
+    private Integer id;
+    private Integer floorCount;
+    private BigDecimal price;
+    private List<ParkingPlace> parkingPlaces;
+    private List<Person> lodgers;
 
     public House() {
     }
@@ -47,6 +50,46 @@ public class House {
         this.floorCount = floorCount;
         this.price = price;
         this.parkingPlaces = parkingPlaces;
+        this.lodgers = lodgers;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getFloorCount() {
+        return floorCount;
+    }
+
+    public void setFloorCount(Integer floorCount) {
+        this.floorCount = floorCount;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public List<ParkingPlace> getParkingPlaces() {
+        return parkingPlaces;
+    }
+
+    public void setParkingPlaces(List<ParkingPlace> parkingPlaces) {
+        this.parkingPlaces = parkingPlaces;
+    }
+
+    public List<Person> getLodgers() {
+        return lodgers;
+    }
+
+    public void setLodgers(List<Person> lodgers) {
         this.lodgers = lodgers;
     }
 

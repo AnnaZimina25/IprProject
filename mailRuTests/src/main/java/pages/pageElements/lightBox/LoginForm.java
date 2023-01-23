@@ -1,16 +1,16 @@
 package pages.pageElements.lightBox;
 
+import user.User;
 import driver.WebDriverWrapper;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
-import user.User;
 
 import static org.openqa.selenium.By.xpath;
 
 /**
  * Форма логина ресурса Mail.ru
  */
-public class LoginForm extends BaseForm{
+public class LoginForm extends BaseForm {
 
     public LoginForm(WebDriverWrapper driver) {
         super(driver, "//iframe[contains(@class,'ag-popup_')]");
@@ -103,8 +103,8 @@ public class LoginForm extends BaseForm{
         return driver.findElement(xpath("//*[@data-test-id='required']"));
     }
 
-   @Step("Поиск пердупреждения 'Неверный пароль, попробуйте ещё раз'")
-   public WebElement getWrongPasswordWarning() {
-       return driver.findElement(xpath("//*[@data-test-id='password-input-error']"));
-   }
+    @Step("Поиск пердупреждения 'Неверный пароль, попробуйте ещё раз'")
+    public WebElement getWrongPasswordWarning() {
+        return driver.findElement(xpath("//*[@data-test-id='password-input-error']"));
+    }
 }

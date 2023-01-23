@@ -1,6 +1,9 @@
 package dtoModels;
 
-public class ParkingPlace {
+/**
+ * Класс хранения данных модели ParkingPlace
+ */
+public class ParkingPlace extends Model {
 
     //   {
 //            "isWarm": true,

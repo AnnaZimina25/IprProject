@@ -2,175 +2,88 @@ package api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dtoModels.AuthorizationResponse;
+import dtoModels.Model;
 import dtoModels.Person;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Method;
 import io.restassured.specification.RequestSpecification;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.http.Method.*;
 
 /**
- * Класс для формирования API запросов
+ * Класс для формирования API запросов к тестовому полигону
  */
 public class PerfApi {
 
-    private static final String BASE_URI = "http://77.50.236.203:4880";
-    // private static RequestSpecification spec;
+    private static final String BASE_URL = "http://77.50.236.203:4880";
     private static ObjectMapper mapper = new ObjectMapper();
-    private String token;
     private Map<String, String> headers = new HashMap<>() {{
         put("Content-Type", "application/json");
     }};
 
-//    public void login() {
-//        Content - Type:application / json
-//        {
-//            "username":"authTester",
-//                "password":"password"
-//        }
-//
-//    }
+    @Step("Выполнить запрос GET /login")
+    public void login() {
+        String username = "user@pflb.ru";
+        String password = System.getenv("user");
+
+        String token =  new ResponseWrapper(given()
+                .queryParam("username", username)
+                .queryParam("password", password)
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .when()
+                .request("GET", BASE_URL + "/login"))
+                .checkStatusCode(202)
+                .getBodyAsObject(AuthorizationResponse.class)
+                .getAccess_token();
+
+        headers.put("Authorization", "Bearer " + token );
+    }
+
+    @Step("Выполнить запрос GET /user/{userid}")
+    public ResponseWrapper getPerson(int userid) {
+        //return sendGetRequest("/user/" + userid);
+        return sendRequest("/user/" + userid,"", GET);
+    }
+
+    @Step("Выполнить запрос POST /user")
+    public ResponseWrapper addPerson(Person person) {
+        //return sendPostRequest("/user", getJsonString(person));
+        return sendRequest("/user", getJsonString(person), POST);
+    }
+
+    @Step("Выполнить запрос DELETE /user/{userId}")
+    public ResponseWrapper deletePerson(int userId) {
+        return sendRequest("/user/" + userId, "", DELETE);
+    }
 
     private RequestSpecification setRequestSpec(String basePath, String body) {
-        return new RequestSpecBuilder().setBaseUri(BASE_URI)
+        return new RequestSpecBuilder().setBaseUri(BASE_URL)
                 .setBasePath(basePath)
-                .addHeader("Content-Type", "application/json")
-                //.addHeaders(headers)
+                .addHeaders(headers)
                 .setBody(body)
                 .build();
     }
 
     private ResponseWrapper sendRequest(String basePath, String body, Method method) {
-
         return new ResponseWrapper(given().spec(setRequestSpec(basePath, body))
                 .when()
-                //.get()
-                //.post()
                 .request(method)
                 .thenReturn());
     }
 
-    private ResponseWrapper sendRequest(String basePath) {
-
-        return new ResponseWrapper(given().spec(setRequestSpec(basePath, ""))
-                .when()
-                //.post()
-                .request(Method.GET)
-                .thenReturn());
-    }
-
-    @Step("Выполнить запрос GET /users")
-    public ResponseWrapper getPersons() {
-        return new ResponseWrapper(given().spec(setRequestSpec("/users",""))
-                .when()
-                .get()
-                .thenReturn());
-     //   return sendRequest("/users");
-    }
-
-    @Step("Выполнить запрос GET /api/users")
-    public ResponseWrapper getApiUsers() {
-//        return new ResponseWrapper(given().spec(setRequestSpec("/users",""))
-//                .when()
-//                .get()
-//                .thenReturn());
-        return sendRequest("/api/users");
-    }
-
-    @Step("Выполнить запрос GET /user/{id}")
-    public ResponseWrapper getPerson(int id) {
-     //  return sendRequest("/user/");
-        return new ResponseWrapper(given().spec(setRequestSpec("/user/" + id, ""))
-                .when()
-                .get()
-                .thenReturn());
-    }
-
-    // POST http://example.org/addUser
-    //Content-Type: application/json
-    //
-    //{
-    //  "firstName": "Vasiliy",
-    //  "secondName": "Rubenstein",
-    //  "age": 42,
-    //  "sex": "MALE",
-    //  "money": 1000000
-    //}
-    //Ответ
-    //HTTP/1.1 201
-    //Content-Type: application/json
-    //
-    //{
-    //  "id": 2,
-    //  "firstName": "Vasiliy",
-    //  "secondName": "Rubenstein",
-    //  "age": 42,
-    //  "sex": "MALE",
-    //  "money": 1000000
-    //}
-
-    @Step("Выполнить запрос POST /addUser")
-    public ResponseWrapper addPerson(Person person) {
+    private String getJsonString(Model model){
         String jsonString = null;
         try {
-            jsonString = mapper.writeValueAsString(person);
+            jsonString = mapper.writeValueAsString(model);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println(jsonString);
-
-        return sendRequest("/addUser", jsonString, Method.POST);
-//        return new ResponseWrapper(given().spec(setRequestSpec("/addUser", jsonString))
-//                .when()
-//                .post()
-//                .thenReturn());
+        return jsonString;
     }
-
-    public void login() {
-        //Content - Type:application / json
-        String jsonString = "{\"username\":\"authTester\",\"password\":\"password\"}";
-//        String token = new ResponseWrapper(given().spec(setRequestSpec("/login", jsonString))
-//                .when()
-//                .post()
-//                .thenReturn())
-//                .getBodyAsStr();
-
-        String token = sendRequest("/login", jsonString, Method.POST)
-                .checkStatusCode(200)
-                .getBodyAsStr();
-        System.out.println(token);
-
-    }
-
-    // POST http://example.org/user/2/money/70230
-    //Ответ
-    //HTTP/1.1 200
-    //Content-Type: application/json
-    //
-    //{
-    //  "id": 2,
-    //  "firstName": "Vasiliy",
-    //  "secondName": "Rubenstein",
-    //  "age": 42,
-    //  "sex": "MALE",
-    //  "money": 1000000
-    //}
-
-    @Step("Выполнить запрос POST /user/{id}/money/{amount}")
-    public ResponseWrapper increaseMoneyAmount(String personId, BigDecimal moneyAmount) {
-        String basePath = String.format("/user/%s/money/%s", personId, moneyAmount);
-        return new ResponseWrapper(given().spec(setRequestSpec(basePath, ""))
-                .when()
-                .get()
-                .thenReturn());
-    }
-
-//    private Map<String, String> addHeader(String headerName, String headerValue) {
-//
-//    }
 }

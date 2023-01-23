@@ -2,7 +2,11 @@ package dtoModels;
 
 import java.math.BigDecimal;
 
-public class Car {
+
+/**
+ * Класс хранения данных модели Car
+ */
+public class Car extends Model {
 
 //    {
 //        "id": 8,

@@ -1,5 +1,6 @@
 package checkLogin;
 
+import user.User;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -13,7 +14,6 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import pages.MailPage;
 import pages.MainPage;
 import user.BigLebovski;
-import user.User;
 import user.YolterYait;
 
 import java.util.stream.Stream;

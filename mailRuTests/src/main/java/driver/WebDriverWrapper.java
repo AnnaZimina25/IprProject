@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+
 /**
  * Класс-обертка для webDriver
  */
@@ -38,7 +40,6 @@ public class WebDriverWrapper {
 
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-        //options.addArguments("--disable-notifications");
         WebDriverManager.chromedriver().setup();
 
         driver = new ChromeDriver(options);
@@ -79,9 +80,9 @@ public class WebDriverWrapper {
             log.debug("Пробую найти элемент {} - попытка #{}", locator.toString(), count);
 
             try {
-                element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-                element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-                element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+                element = wait.until(presenceOfElementLocated(locator));
+                element = wait.until(visibilityOfElementLocated(locator));
+                element = wait.until(elementToBeClickable(locator));
 
                 //Подсветка на странице найденного нами элемента
                 if (colorElements) {
@@ -125,6 +126,6 @@ public class WebDriverWrapper {
     public void waitingForDisappearElement(By locator, int sec) throws TimeoutException {
         log.debug("Ожидаю в ткчение {} секунд пока скроется элемент {}", sec, locator.toString());
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(sec), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(locator)));
+        wait.until(ExpectedConditions.not(visibilityOfElementLocated(locator)));
     }
 }

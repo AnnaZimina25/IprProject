@@ -1,11 +1,11 @@
 package pages;
 
+import user.User;
 import driver.WebDriverWrapper;
 import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pages.pageElements.panels.HeaderPanel;
-import user.User;
 
 import static io.qameta.allure.Allure.step;
 

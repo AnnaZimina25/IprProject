@@ -9,9 +9,6 @@ import org.apache.logging.log4j.Logger;
 public class YolterYait extends User {
 
     private static Logger log = LogManager.getRootLogger();
-    private String loginName;
-    private String domain;
-    private String password;
 
     private static YolterYait instance = null;
 
