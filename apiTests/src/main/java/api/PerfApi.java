@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dtoModels.AuthorizationResponse;
 import dtoModels.Model;
-import dtoModels.Person;
+import dtoModels.person.Person;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Method;
@@ -15,6 +15,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.Method.*;
+import static java.lang.String.format;
 
 /**
  * Класс для формирования API запросов к тестовому полигону
@@ -45,16 +46,25 @@ public class PerfApi {
         headers.put("Authorization", "Bearer " + token );
     }
 
-    @Step("Выполнить запрос GET /user/{userid}")
-    public ResponseWrapper getPerson(int userid) {
-        //return sendGetRequest("/user/" + userid);
-        return sendRequest("/user/" + userid,"", GET);
+    @Step("Выполнить запрос GET /user/{userId}")
+    public ResponseWrapper getPerson(int userId) {
+        return sendRequest("/user/" + userId,"", GET);
+    }
+
+    @Step("Выполнить запрос GET /car/{carId}")
+    public ResponseWrapper getCar(int carId) {
+        return sendRequest("/car/" + carId,"", GET);
     }
 
     @Step("Выполнить запрос POST /user")
     public ResponseWrapper addPerson(Person person) {
-        //return sendPostRequest("/user", getJsonString(person));
         return sendRequest("/user", getJsonString(person), POST);
+    }
+
+    @Step("Выполнить запрос POST /user/{userId}/buyCar/{carId}")
+    public ResponseWrapper buyCar(int userId, int carId) {
+        String basePath = format("/user/%s/buyCar/%s", userId, carId);
+        return sendRequest(basePath, "", POST);
     }
 
     @Step("Выполнить запрос DELETE /user/{userId}")
@@ -77,6 +87,7 @@ public class PerfApi {
                 .thenReturn());
     }
 
+    @Step("Сформировать json строку")
     private String getJsonString(Model model){
         String jsonString = null;
         try {

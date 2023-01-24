@@ -10,7 +10,8 @@
 
 **Environment variables:**
 ```
-bigLebovski=LEBOVSKI_USER_PASSWORD;heisenberg=HEISENBERG_USER_PASSWORD
+Задать переменные окружения:
+bigLebovski; heisenberg; dbPass; user
 ```
 
 **Maven команды:**

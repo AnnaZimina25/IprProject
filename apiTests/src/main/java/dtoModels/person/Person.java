@@ -1,26 +1,15 @@
-package dtoModels;
+package dtoModels.person;
 
-import io.qameta.allure.Step;
+import dtoModels.Model;
 
 import java.math.BigDecimal;
-import java.util.Locale;
 
-import static dtoModels.Person.Sex.FEMALE;
-import static dtoModels.Person.Sex.MALE;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static dtoModels.person.Sex.*;
 
 /**
  * Класс хранения данных модели User
  */
-public class Person extends Model{
-
-//    "id": 1,
-//            "firstName": "Vasiliy",
-//            "secondName": "Rubenstein",
-//            "age": 42,
-//            "sex": "MALE",
-//            "money": 1000000.00
+public class Person extends Model {
 
     private Integer id;
     private String firstName;
@@ -32,15 +21,6 @@ public class Person extends Model{
 
     public Person() {
     }
-
-    public Person(String firstName, String secondName, Integer age, String sex, BigDecimal money) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.age = age;
-        this.sex = sex;
-        this.money = money;
-    }
-
 
     public Person setId(Integer id) {
         this.id = id;
@@ -78,8 +58,8 @@ public class Person extends Model{
         return this;
     }
 
-    public Person setMoney(Double money) {
-        this.money = money != null? new BigDecimal(money) : null;
+    public Person setMoney(BigDecimal money) {
+        this.money = money;
         return this;
     }
 
@@ -122,25 +102,5 @@ public class Person extends Model{
                 ", money=" + money +
                 ", house_id=" + house_id +
                 '}';
-    }
-
-    public enum Sex {
-        MALE(true),
-        FEMALE(false);
-
-       private Boolean databaseValue;
-
-        public Boolean getDatabaseValue() {
-            return databaseValue;
-        }
-
-        Sex(Boolean databaseValue) {
-            this.databaseValue = databaseValue;
-        }
-
-        @Override
-        public String toString() {
-            return this.name().toLowerCase(Locale.ROOT);
-        }
     }
 }

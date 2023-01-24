@@ -10,9 +10,9 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 
+import static java.time.Duration.ofSeconds;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 /**
@@ -47,7 +47,7 @@ public class WebDriverWrapper {
         driver.manage().deleteAllCookies();
 
         colorElements = true;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(6), Duration.ofSeconds(2));
+        wait = new WebDriverWait(driver, ofSeconds(6), ofSeconds(2));
     }
 
     public WebDriverWrapper get(String url) {
@@ -125,7 +125,7 @@ public class WebDriverWrapper {
 
     public void waitingForDisappearElement(By locator, int sec) throws TimeoutException {
         log.debug("Ожидаю в ткчение {} секунд пока скроется элемент {}", sec, locator.toString());
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(sec), Duration.ofSeconds(2));
+        WebDriverWait wait = new WebDriverWait(driver, ofSeconds(sec), ofSeconds(2));
         wait.until(ExpectedConditions.not(visibilityOfElementLocated(locator)));
     }
 }

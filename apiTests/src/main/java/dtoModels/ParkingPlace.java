@@ -5,12 +5,6 @@ package dtoModels;
  */
 public class ParkingPlace extends Model {
 
-    //   {
-//            "isWarm": true,
-//                "isCovered": true,
-//                "placesCount": 1
-//        },
-
     public Boolean isWarm;
     public Boolean isCovered;
     public Integer placesCount;

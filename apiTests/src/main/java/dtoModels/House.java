@@ -1,5 +1,7 @@
 package dtoModels;
 
+import dtoModels.person.Person;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -7,34 +9,6 @@ import java.util.List;
  * Класс хранения данных модели House
  */
 public class House extends Model {
-
-//    {
-//        "id": 3,
-//            "floorCount": 2,
-//            "price": 230,
-//            "parkingPlaces": [
-//        {
-//            "isWarm": true,
-//                "isCovered": true,
-//                "placesCount": 1
-//        },
-//        {
-//            "isWarm": false,
-//                "isCovered": false,
-//                "placesCount": 2
-//        }
-//  ],
-//        "lodgers": [
-//        {
-//            "id": 2,
-//                "firstName": "Vasiliy",
-//                "secondName": "Rubenstein",
-//                "age": 42,
-//                "sex": "MALE",
-//                "money": 929770
-//        }
-//  ]
-//    }
 
     private Integer id;
     private Integer floorCount;
